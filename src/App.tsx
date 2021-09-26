@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Router>
       <Route exact path="/" children={<Home />} />
-      <Route path="/add" children={<Add lines={3} columns={2} />} />
+      <Route path="/add" children={<Add lines={2} columns={3} header={true} />} />
       {/* <Route path="*" children={<NotFound />} /> */}
     </Router>
   );
