@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const InputStyled = styled.input`
-    width: 30px;
+    width: 50px;
     text-align: center;
     display: inline-block;
     margin: 10px 20px;
@@ -10,6 +10,7 @@ export const InputStyled = styled.input`
     border-radius: 5px;
     border-width: 1.7px;
     border-bottom-width: 2px;
+    font-size: 28px;
     
     ${props => props.disabled &&
         css`

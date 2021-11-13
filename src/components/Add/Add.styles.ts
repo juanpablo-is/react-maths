@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 10px auto;
+    margin: 0px auto;
 
     .content {
         display: flex;
@@ -17,6 +17,9 @@ export const Wrapper = styled.div`
         .symbol {
             width: 40px;
             text-align: center;
+            font-size: 32px;
+            color: var(--colorPrimary);
+            font-weight: bold;
         }
     }
 `;
@@ -28,7 +31,7 @@ export const Expression = styled.div`
 `;
 
 export const Result = styled.div`
-    border-top: 1px solid red;
+    border-top: 2px solid var(--colorPrimary);
 `;
 
 export const Content = styled.div`

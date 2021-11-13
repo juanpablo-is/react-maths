@@ -6,13 +6,14 @@ type Props = {
     text: string;
     path?: string;
     triggerClick?: any;
+    variant?: string;
 }
 
 // Components
-const Button: React.FC<Props> = ({ text, path, triggerClick }) => {
+const Button: React.FC<Props> = ({ text, path, variant = "", triggerClick }) => {
     return (
-        path ? <Link href={path}>{text}</Link>
-            : <ButtonStyle onClick={triggerClick}>{text}</ButtonStyle>
+        path ? <Link className={variant} href={path}>{text}</Link>
+            : <ButtonStyle className={variant} onClick={triggerClick}>{text}</ButtonStyle>
     );
 };
 

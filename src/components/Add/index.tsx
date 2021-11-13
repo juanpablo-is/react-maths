@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import SwalAlert from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import Button from '../common/Button';
 import HeaderNumber from '../common/HeaderNumber';
 import Input from '../common/Input';
 import { Expression, Result, Wrapper, Content } from './Add.styles';
+
+const Swal = withReactContent(SwalAlert);
+let total = "";
 
 type Props = {
     lines: number;
     columns: number;
     header: boolean;
 }
-
-let total = "";
 
 const Add: React.FC<Props> = ({ lines, columns, header }) => {
     const [getExpression, setExpression] = useState([""]);
@@ -42,14 +45,15 @@ const Add: React.FC<Props> = ({ lines, columns, header }) => {
                 <div className="content">
                     <div className="symbol">=</div>
                     <Result className="result">
-                        {Array.from(Array(total.length).keys()).map((_, i) => (
-                            <Input key={i} />
-                        ))}
+                        {Array.from(Array(total.length >= columns ? total.length : columns).keys())
+                            .map((index, i, array) => (
+                                <Input autofocus={index === array.length - 1} key={i} />
+                            ))}
                     </Result>
                 </div>
             </Content>
 
-            <Button text="Verificar" triggerClick={validateResult} />
+            <Button text="VERIFICAR" variant="second" triggerClick={validateResult} />
         </Wrapper>
     );
 }
@@ -60,9 +64,27 @@ const validateResult = () => {
 
     resultsInput.forEach(result => { totalUser += result.value; });
 
-    console.log(totalUser === total);
-    console.log({ total });
-    console.log({ totalUser });
+    if (Number(totalUser) === Number(total)) {
+        Swal.fire({
+            icon: 'success',
+            title: '¡ PERFECTO !',
+            text: 'La operación fue correcta.',
+            confirmButtonText: 'Realizar otra',
+            showCancelButton: true,
+            cancelButtonText: 'Cerrar'
+        }).then(data => {
+            if (data.isConfirmed) {
+                window.location.reload();
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'La operación fue incorrecta.',
+            confirmButtonText: 'De acuerdo'
+        });
+    }
 };
 
 // Create random numbers depending line and columns. 
@@ -76,6 +98,7 @@ const createExpression = (line: number, columns: number): any => {
 
         return number.toString().padStart(columns, "0");
     });
+    console.log(countTotal);
 
     total = String(countTotal);
     return { expression };

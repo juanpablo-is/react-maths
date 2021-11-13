@@ -1,6 +1,7 @@
 :root {
   --colorSuccess: #5cb85c;
   --colorFail: #ff6060;
+  --colorPrimary: #3974EA;
 }
 
 body {
@@ -12,4 +13,11 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
