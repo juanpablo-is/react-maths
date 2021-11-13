@@ -25,11 +25,14 @@ export const Expression = styled.div`
     .line {
         width: fit-content;
     }
-
-    .line:last-child{
-        border-bottom: 1px solid red;
-    }
 `;
 
 export const Result = styled.div`
+    border-top: 1px solid red;
+`;
+
+export const Content = styled.div`
+    align-items: end;
+    display: flex;
+    flex-direction: column;
 `;
