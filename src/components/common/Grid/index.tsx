@@ -5,15 +5,11 @@ import { Wrapper } from './Grid.styles';
 
 // Types
 type Props = {
-    columns: number;
-}
+  columns: number;
+};
 
 const Grid: React.FC<Props> = ({ columns, children }) => {
-    return (
-        <Wrapper columns={columns}>
-            {children}
-        </Wrapper>
-    );
-}
+  return <Wrapper columns={columns}>{children}</Wrapper>;
+};
 
 export default Grid;

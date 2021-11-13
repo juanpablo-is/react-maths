@@ -1,41 +1,41 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
-    width: max-content;
-    height: 100vh;
+  width: max-content;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0px auto;
+
+  .content {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    margin: 0px auto;
 
-    .content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .symbol {
-            width: 40px;
-            text-align: center;
-            font-size: 32px;
-            color: var(--colorPrimary);
-            font-weight: bold;
-        }
+    .symbol {
+      width: 40px;
+      text-align: center;
+      font-size: 32px;
+      color: var(--colorPrimary);
+      font-weight: bold;
     }
+  }
 `;
 
 export const Expression = styled.div`
-    .line {
-        width: fit-content;
-    }
+  .line {
+    width: fit-content;
+  }
 `;
 
 export const Result = styled.div`
-    border-top: 2px solid var(--colorPrimary);
+  border-top: 2px solid var(--colorPrimary);
 `;
 
 export const Content = styled.div`
-    align-items: end;
-    display: flex;
-    flex-direction: column;
+  align-items: end;
+  display: flex;
+  flex-direction: column;
 `;
