@@ -13,7 +13,6 @@ export const InputStyled = styled.input`
     
     ${props => props.disabled &&
         css`
-            padding: 0px;
             background: white;
             border-color: white;
         `};

@@ -14,9 +14,9 @@ export const Header = styled.div`
         border-bottom: 1px solid grey;
 
         input {
-            border-top: none;
-            border-right: none;
-            border-left: none;
+            border-top-color: white;
+            border-right-color: white;
+            border-left-color: white;
          }
     }
 `;
