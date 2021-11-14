@@ -5,9 +5,15 @@ type Props = {
   disabled?: boolean;
   defaultValue?: any;
   autofocus?: boolean;
+  onKeyPress?: () => void;
 };
 
-const Input: React.FC<Props> = ({ disabled, defaultValue, autofocus }) => {
+const Input: React.FC<Props> = ({
+  disabled,
+  defaultValue,
+  autofocus,
+  onKeyPress,
+}) => {
   const [value, setValue] = useState(defaultValue || '');
 
   return (
@@ -22,6 +28,7 @@ const Input: React.FC<Props> = ({ disabled, defaultValue, autofocus }) => {
       }}
       autoFocus={autofocus}
       value={value}
+      onKeyPress={onKeyPress}
     />
   );
 };

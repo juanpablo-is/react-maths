@@ -48,7 +48,11 @@ const Add: React.FC<Props> = ({ lines, columns, header }) => {
             {Array.from(
               Array(total.length >= columns ? total.length : columns).keys()
             ).map((index, i, array) => (
-              <Input autofocus={index === array.length - 1} key={i} />
+              <Input
+                onKeyPress={validateResultInput}
+                autofocus={index === array.length - 1}
+                key={i}
+              />
             ))}
           </Result>
         </div>
@@ -59,15 +63,31 @@ const Add: React.FC<Props> = ({ lines, columns, header }) => {
   );
 };
 
+// Handler keyPress to inputs to execute validation.
+const validateResultInput = (e?: any) => {
+  if (e.code && (e.code === 'Enter' || e.code === 'NumpadEnter')) {
+    validateResult();
+  }
+};
+
+// Handler to validate result operation.
 const validateResult = () => {
-  const resultsInput =
-    document.querySelectorAll<HTMLInputElement>('.result input');
+  const inputs = document.querySelectorAll<HTMLInputElement>('.result input');
+  let emptyInputs = true;
   let totalUser = '';
 
-  resultsInput.forEach((result) => {
-    totalUser += result.value;
+  inputs.forEach((result) => {
+    if (result.value) {
+      emptyInputs = false;
+      totalUser += result.value;
+    }
   });
 
+  emptyInputs ? sendToast() : sendResultAnalytics(totalUser);
+};
+
+// Send result to database.
+const sendResultAnalytics = (totalUser: string) => {
   if (Number(totalUser) === Number(total)) {
     Swal.fire({
       icon: 'success',
@@ -89,6 +109,25 @@ const validateResult = () => {
       confirmButtonText: 'De acuerdo',
     });
   }
+};
+
+const sendToast = () => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'bottom-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: 'error',
+    title: 'Tiene que ingresar un resultado.',
+  });
 };
 
 // Create random numbers depending line and columns.
