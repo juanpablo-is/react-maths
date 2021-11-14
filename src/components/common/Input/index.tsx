@@ -18,13 +18,12 @@ const Input: React.FC<Props> = ({
 
   return (
     <InputStyled
-      type="number"
-      min={0}
-      max={9}
-      maxLength={1}
+      type="text"
       disabled={disabled}
       onChange={(e: any) => {
-        setValue(e.nativeEvent.data ?? '');
+        if (!isNaN(e.nativeEvent.data)) {
+          setValue(e.nativeEvent.data ?? '');
+        }
       }}
       autoFocus={autofocus}
       value={value}
