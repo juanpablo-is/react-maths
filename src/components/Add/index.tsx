@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import SwalAlert from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import socketIOClient from 'socket.io-client';
+
+// Components React.
 import Button from '../common/Button';
 import HeaderNumber from '../common/HeaderNumber';
 import Input from '../common/Input';
+
+// Utils.
+import { sendToast } from '../../utils/alerts';
+
+// Styled-components.
 import { Expression, Result, Wrapper, Content } from './Add.styles';
 
+const ENDPOINT = 'http://localhost:5000';
 const Swal = withReactContent(SwalAlert);
+const socket = socketIOClient(ENDPOINT);
 let total = '';
 
+// Props type.
 type Props = {
   lines: number;
   columns: number;
@@ -82,13 +93,16 @@ const validateResult = () => {
       totalUser += result.value;
     }
   });
+  console.log(totalUser);
 
   emptyInputs ? sendToast() : sendResultAnalytics(totalUser);
 };
 
 // Send result to database.
 const sendResultAnalytics = (totalUser: string) => {
-  if (Number(totalUser) === Number(total)) {
+  const isCorrect = Number(totalUser) === Number(total);
+
+  if (isCorrect) {
     Swal.fire({
       icon: 'success',
       title: '¡ PERFECTO !',
@@ -109,25 +123,12 @@ const sendResultAnalytics = (totalUser: string) => {
       confirmButtonText: 'De acuerdo',
     });
   }
-};
 
-const sendToast = () => {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'bottom-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer);
-      toast.addEventListener('mouseleave', Swal.resumeTimer);
-    },
+  socket.emit('attempts', {
+    id: '61919f3405e7ad6b1a13e6ab',
+    attempts: { resultUser: totalUser, result: total, isCorrect },
   });
-
-  Toast.fire({
-    icon: 'error',
-    title: 'Tiene que ingresar un resultado.',
-  });
+  // socket.emit('user-connect', { id: '61919f3405e7ad6b1a13e6ab' });
 };
 
 // Create random numbers depending line and columns.
