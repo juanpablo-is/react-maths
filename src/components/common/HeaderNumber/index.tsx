@@ -1,4 +1,3 @@
-import { type } from 'os';
 import React from 'react';
 import Input from '../Input';
 import { Header } from './HeaderNumber.styles';
